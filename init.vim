@@ -39,6 +39,8 @@ Plug 'pmizio/typescript-tools.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'OXY2DEV/markview.nvim'
 
+Plug 'bash-lsp/bash-language-server', {'do': '!CI=true npm i -g bash-language-server'}
+
 call plug#end()
 
 filetype plugin indent on

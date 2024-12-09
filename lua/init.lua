@@ -1,20 +1,15 @@
--- require("lspconfig").sparql.setup {
---   cmd = { "node", "/home/grickle/.nvm/versions/node/v18.19.1/lib/node_modules/sparql-language-server", "--stdio" },
---   capabilities=capabilities,
---   on_attach = on_attach
--- }
-
+require("bash-config")
 require("dapui-config")
 require("dap-java-config")
 require("dap-js-config")
 require("dap-python-config")
 require("indent-blankline-config")
 require("lspconfig-python")
+require("neogit-config")
 require("nvim-tree-config")
 require("nvim-treesitter-config")
 require("python-config")
-
-vim.treesitter.language.register('sparql', 'sq')
+require("sparql-config")
 
 function bufoptsWithDesc(desc)
     return { silent = true, buffer = bufnr, desc = desc }
@@ -44,10 +39,6 @@ vim.keymap.set("n", "<leader>r", function()
       end
     end, 500)
 end, bufoptsWithDesc("Rename symbol"))
-
-
-local neogit = require('neogit')
-neogit.setup {}
 
 vim.cmd([[autocmd! CursorHold * :lua vim.lsp.buf.hover()]])
 
