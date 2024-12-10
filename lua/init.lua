@@ -10,6 +10,7 @@ require("nvim-tree-config")
 require("nvim-treesitter-config")
 require("python-config")
 require("sparql-config")
+require("surround-config")
 
 function bufoptsWithDesc(desc)
     return { silent = true, buffer = bufnr, desc = desc }
@@ -40,7 +41,7 @@ vim.keymap.set("n", "<leader>r", function()
     end, 500)
 end, bufoptsWithDesc("Rename symbol"))
 
-vim.cmd([[autocmd! CursorHold * :lua vim.lsp.buf.hover()]])
+-- vim.cmd([[autocmd! CursorHold * :lua vim.lsp.buf.hover()]])
 
 vim.opt.mouse = ""
 

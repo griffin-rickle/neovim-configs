@@ -1,12 +1,4 @@
 {
     "eslint.validate": [ "typescript" ],
     "python.setInterpreter": "/home/griff/.pyenv/shims/python3",
-    "languageserver": {
-        "bash": {
-          "command": "bash-language-server",
-          "args": ["start"],
-          "filetypes": ["sh"],
-          "ignoredRootPaths": ["~"]
-        }
-    }
 }

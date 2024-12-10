@@ -42,6 +42,9 @@ Plug 'OXY2DEV/markview.nvim'
 Plug 'bash-lsp/bash-language-server', {'do': '!CI=true npm i -g bash-language-server'}
 
 Plug 'HiPhish/rainbow-delimiters.nvim'
+Plug 'z0mbix/vim-shfmt'
+
+Plug 'kylechui/nvim-surround'
 
 call plug#end()
 
@@ -243,6 +246,7 @@ let g:mkdp_filetypes = ['markdown']
 " By default the theme is define according to the preferences of the system
 let g:mkdp_theme = 'dark'
 
+nnoremap <leader>h :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>dk :lua require'dap'.continue()<CR>
 nnoremap <leader>dj :lua require'dap'.step_over()<CR>
 nnoremap <leader>dl :lua require'dap'.step_into()<CR>
@@ -258,7 +262,7 @@ nnoremap <leader>fd <cmd>Telescope lsp_definitions<cr>
 
 nnoremap <leader>do :lua require'dapui'.toggle()<CR>
 
-nnoremap <leader>ng :Neogit kind=vsplit<CR>
+nnoremap <leader>ng :Neogit<CR>
 
 nnoremap <leader>lo :lua vim.diagnostic.open_float()<CR>
 
