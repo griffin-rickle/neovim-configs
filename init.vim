@@ -21,7 +21,7 @@ Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'rcarriga/nvim-dap-ui'
 
-Plug 'griffin-rickle/vim-sparql-query'
+"Plug 'griffin-rickle/vim-sparql-query'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
@@ -33,7 +33,6 @@ Plug 'kyazdani42/nvim-web-devicons'
 Plug 'NeogitOrg/neogit'
 
 Plug 'mfussenegger/nvim-dap-python'
-Plug 'mxsdev/nvim-dap-vscode-js'
 
 Plug 'pmizio/typescript-tools.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
@@ -46,7 +45,16 @@ Plug 'z0mbix/vim-shfmt'
 
 Plug 'kylechui/nvim-surround'
 
+Plug 'tpope/vim-fugitive'
+Plug 'sindrets/diffview.nvim'
+Plug 'ful1e5/onedark.nvim'
+
+Plug 'LunarVim/bigfile.nvim'
+
+Plug 'niuiic/core.nvim'
+Plug 'niuiic/dap-utils.nvim'
 call plug#end()
+"colorscheme onedark
 
 filetype plugin indent on
 set tabstop=4
@@ -88,27 +96,6 @@ let mapleader="\\"
 autocmd StdinReadPre * let g:isReadingFromStdin = 1
 
 set nofoldenable
-
-let g:vimspector_base_dir=expand( '$HOME/.vim_runtime/my_plugins/vimspector' )
-let g:vimsppector_install_gadgets = [ 'vscode-node-debug2' ]
-
-"nnoremap <Leader>dd :call vimspector#Launch()<CR>
-"nnoremap <Leader>de :call vimspector#Reset()<CR>
-"nnoremap <Leader>dc :call vimspector#Continue()<CR>
-"
-"nnoremap <Leader>oc :call vimspector#ShowOutput('Console')<CR>
-"nnoremap <Leader>os :call vimspector#ShowOutput('stderr')<CR>
-"nnoremap <Leader>ov :call vimspector#ShowOutput('Vimspector')<CR>
-"
-"nnoremap <Leader>dt :call vimspector#ToggleBreakpoint()<CR>
-"nnoremap <Leader>dT :call vimspector#ClearBreakpoints()<CR>
-
-"nmap <Leader>dk <Plug>VimspectorRestart
-"nmap <Leader>dh <Plug>VimspectorStepOut
-"nmap <Leader>dl <Plug>VimspectorStepInto
-"nmap <Leader>dj <Plug>VimspectorStepOver
-"nmap <Leader>di <Plug>VimspectorBaloonEval
-"nmap <Leader>ds :call vimspector#LaunchWithSettings( #{configuration: 'debug-server'} )<CR>
 
 nmap <Leader>p <Nop>
 
@@ -244,7 +231,9 @@ let g:mkdp_filetypes = ['markdown']
 
 " set default theme (dark or light)
 " By default the theme is define according to the preferences of the system
-let g:mkdp_theme = 'dark'
+"let g:mkdp_theme = 'dark'
+
+nnoremap <A-o> <Cmd>lua require'jdtls'.organize_imports()<CR>
 
 nnoremap <leader>h :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>dk :lua require'dap'.continue()<CR>
@@ -269,9 +258,12 @@ nnoremap <leader>lo :lua vim.diagnostic.open_float()<CR>
 nnoremap <leader>af :lua vim.g.py_auto_format=1<CR>
 nnoremap <leader>an :lua vim.g.py_auto_format=0<CR>
 
+nnoremap <leader>cb :lua require("qf-diff").diff()<CR>
+nnoremap <leader>cn :lua require("qf-diff").next()<CR>
+nnoremap <leader>cp :lua require("qf-diff").prev()<CR>
+
 inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
 
-colorscheme onedark
 lua require('init')
 lua require'nvim-treesitter.configs'.setup{highlight={enable=true}}
 

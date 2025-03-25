@@ -10,6 +10,17 @@ dap.configurations.python = {
     },
     {
         type = 'python';
+        request = 'launch',
+        cwd = '/',
+        name = 'Launch with args',
+        program = '${file}',
+        args = function()
+            local args_string = vim.fn.input('Arguments: ')
+            return vim.split(args_string, " +")
+        end;
+    },
+    {
+        type = 'python';
         request = 'launch';
         name = 'beet web';
         cwd = '/home/griff/git/beets/';

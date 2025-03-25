@@ -1,45 +1,75 @@
-require('typescript-tools').setup {
-    settings={}
+local dap = require('dap')
+
+dap.adapters["pwa-node"] = {
+    type = "server",
+    host = "localhost",
+    port = "${port}", --let both ports be the same for now...
+    executable = {
+        command = "node",
+        -- -- 💀 Make sure to update this path to point to your installation
+        args = { "/home/grickle/Downloads/js-debug-dap-v1.97.1/js-debug/src/dapDebugServer.js", "${port}" },
+        -- command = "js-debug-adapter",
+        -- args = { "${port}" },
+    },
 }
 
-require("dap-vscode-js").setup({
-  -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
-  debugger_path = "/home/grickle/git/vscode-js-debug/", -- Path to vscode-js-debug installation.
-  -- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
-  adapters = { 'pwa-node', 'pwa-chrome', 'pwa-msedge', 'node-terminal', 'pwa-extensionHost' }, -- which adapters to register in nvim-dap
-  -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
-  -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
-  -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
-})
-
+-- Need to have ts-node installed with npm; `npm i -g ts-node`
+-- Not the best solution but if it allows me to debug JS I don't mind
 for _, language in ipairs({ "typescript", "javascript" }) do
-    require("dap").configurations[language] = {
+    dap.configurations[language] = {
         {
-            type = "pwa-node",
-            request = "launch",
-            name = "debug concourse server",
-            restart = true,
-            runtimeExecutable = '${workspaceFolder}/node_modules/.bin/nodemon',
-            program = "${workspaceFolder}/src/server.js",
-            cwd = "${workspaceFolder}",
-            skipFiles = { '<node_indernals>/**' },
-            args = { '-e js,graphql', '--watch src/server', '--watch src/server.js' },
-        },
-        {
-            type = 'pwa-chrome',
+            type = 'pwa-node',
             request = 'launch',
-            name = 'Debug localhost:3000',
-            url = 'localhost:3000',
-            webRoot = '${workspaceFolder}'
+            name = 'Launch Current File (pwa-node)',
+            cwd = "${workspaceFolder}", -- vim.fn.getcwd(),
+            args = { '${file}' },
+            sourceMaps = true,
+            protocol = 'inspector',
         },
         {
             type = 'pwa-node',
-            name = 'run npm start:client',
             request = 'launch',
-            runtimeArgs = { '--host', '127.0.0.1', '--config', '${workspaceFolder}/webpack.local.js' },
-            runtimeExecutable = '${workspaceFolder}/node_modules/.bin/webpack-dev-server',
-            -- skipFiles = { '<node_internals>/**' }
+            name = 'Launch Current File (Typescript)',
+            cwd = "${workspaceFolder}",
+            runtimeArgs = { '--loader=ts-node/esm' },
+            program = "${file}",
+            runtimeExecutable = 'node',
+            -- args = { '${file}' },
+            sourceMaps = true,
+            protocol = 'inspector',
+            outFiles = { "${workspaceFolder}/**/**/*", "!**/node_modules/**" },
+            skipFiles = { '<node_internals>/**', 'node_modules/**' },
+            resolveSourceMapLocations = {
+                "${workspaceFolder}/**",
+                "!**/node_modules/**",
+            },
+        },
+        {
+            type = 'pwa-node',
+            request = 'launch',
+            name = '[CONCOURSE] - Debug Server',
+            sourceMaps = true,
+            cwd = "${workspaceFolder}",
+            runtimeExecutable = "/home/grickle/git/concourse/node_modules/nodemon/bin/nodemon.js",
+            runtimeArgs = {
+                "-e", "js,graphql",
+                "--watch", "src/server",
+                "--watch", "src/server.js"
+            },
+            program = "src/server.js"
+        },
+        {
+            type = 'pwa-node',
+            request = 'launch',
+            name = '[ANNOUNCEBOT] - Debug Server',
+            sourceMaps = true,
+            cwd = "${workspaceFolder}",
+            runtimeExecutable = "node",
+            runtimeArgs = {
+                "-r", "dotenv/config"
+            },
+            program = "server/index.js",
+            args = { "dotenv_config_path=server/config/.announcebot.env" },
         }
     }
 end
-
