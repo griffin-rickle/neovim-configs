@@ -1,4 +1,15 @@
 call plug#begin()
+" Elixir syntax, indentation, and filetype support
+Plug 'elixir-editors/vim-elixir'
+
+" Autocompletion framework
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+
+" Snippet engine (optional)
+Plug 'L3MON4D3/LuaSnip'
 
 " List your plugins here
 Plug 'tpope/vim-sensible'
@@ -21,7 +32,7 @@ Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'rcarriga/nvim-dap-ui'
 
-Plug 'griffin-rickle/vim-sparql-query'
+" Plug 'griffin-rickle/vim-sparql-query'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
