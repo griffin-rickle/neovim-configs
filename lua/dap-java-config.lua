@@ -6,7 +6,7 @@ dap.configurations.java = {
     classPaths = {},
 
     -- If using multi-module projects, remove otherwise.
-    -- projectName = "daggr-admin",
+    -- projectName = "",
 
     -- javaExec = "/path/to/your/bin/java",
     -- mainClass = "your.package.name.MainClassName",
@@ -20,8 +20,5 @@ dap.configurations.java = {
     hostName = "127.0.0.1";
     port = "8000";
   },
-  {
-    name = "dummy java debug entry"
-  }
 }
 

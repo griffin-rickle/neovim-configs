@@ -7,7 +7,7 @@ dap.adapters["pwa-node"] = {
     executable = {
         command = "node",
         -- -- 💀 Make sure to update this path to point to your installation
-        args = { "/home/grickle/Downloads/js-debug-dap-v1.97.1/js-debug/src/dapDebugServer.js", "${port}" },
+        args = { "/home/griff/Downloads/js-debug/src/dapDebugServer.js", "${port}" },
         -- command = "js-debug-adapter",
         -- args = { "${port}" },
     },

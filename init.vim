@@ -15,6 +15,15 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
 
 Plug 'mfussenegger/nvim-jdtls'
 Plug 'mfussenegger/nvim-dap'
@@ -25,10 +34,7 @@ Plug 'rcarriga/nvim-dap-ui'
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-
 Plug 'kyazdani42/nvim-web-devicons'
-"Plug 'https://github.com/adelarsq/vim-devicons-emoji'
 
 Plug 'NeogitOrg/neogit'
 
@@ -38,7 +44,6 @@ Plug 'pmizio/typescript-tools.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'OXY2DEV/markview.nvim'
 
-Plug 'bash-lsp/bash-language-server', {'do': '!CI=true npm i -g bash-language-server'}
 
 Plug 'HiPhish/rainbow-delimiters.nvim'
 Plug 'z0mbix/vim-shfmt'

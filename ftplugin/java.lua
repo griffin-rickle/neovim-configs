@@ -1,7 +1,7 @@
 -- If you started neovim within `~/dev/xy/project-1` this would resolve to `project-1`
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
-local workspace_dir = '/home/griff/git/' .. project_name
+local workspace_dir = '/home/griff/git/workspaces/' .. project_name
 
 local config = {
     cmd = {
