@@ -1,31 +1,31 @@
 call plug#begin()
-
+"
 " List your plugins here
+Plug 'niklasl/vim-rdf'
+
 Plug 'tpope/vim-sensible'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-Plug 'joshdick/onedark.vim'
+Plug 'neovim/nvim-lspconfig'
 
 Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-tree/nvim-tree.lua'
 
-Plug 'neovim/nvim-lspconfig'
 Plug 'christoomey/vim-tmux-navigator'
-
-Plug 'williamboman/mason.nvim'
 
 Plug 'mfussenegger/nvim-jdtls'
 Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'rcarriga/nvim-dap-ui'
 
-"Plug 'griffin-rickle/vim-sparql-query'
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'griffin-rickle/vim-sparql-query', {'branch': 'feature/lua'}
 
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
 
 Plug 'kyazdani42/nvim-web-devicons'
 "Plug 'https://github.com/adelarsq/vim-devicons-emoji'
@@ -36,9 +36,6 @@ Plug 'mfussenegger/nvim-dap-python'
 
 Plug 'pmizio/typescript-tools.nvim'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'OXY2DEV/markview.nvim'
-
-Plug 'bash-lsp/bash-language-server', {'do': '!CI=true npm i -g bash-language-server'}
 
 Plug 'HiPhish/rainbow-delimiters.nvim'
 Plug 'z0mbix/vim-shfmt'
@@ -53,8 +50,20 @@ Plug 'LunarVim/bigfile.nvim'
 
 Plug 'niuiic/core.nvim'
 Plug 'niuiic/dap-utils.nvim'
+"Plug 'w0rp/ale'
+
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip'
+Plug 'onsails/lspkind-nvim'
+
 call plug#end()
-"colorscheme onedark
+colorscheme onedark
 
 filetype plugin indent on
 set tabstop=4
@@ -88,7 +97,7 @@ let mapleader="\\"
 
 " source ~/git/vim-sparql/syntax/sparql.vim
 " source ~/git/vim-sparql/ftdetect/sparql.vim
-" source ~/git/vim-rdf/syntax/trig.vim
+"source ~/git/vim-rdf/syntax/trig.vim
 " source ~/git/vim-rdf/syntax/jsonld.vim
 " source ~/git/vim-rdf/syntax/n3.vim
 " source ~/git/vim-rdf/syntax/turtle.vim
@@ -99,19 +108,20 @@ set nofoldenable
 
 nmap <Leader>p <Nop>
 
-nmap <Leader>qb :BufferQuery<CR>
+nmap <Leader>qb :lua require('sparql_query').run_with_config_from_range()<CR>
 
 map <Leader>vp :VimuxPromptCommand<CR>
 map <Leader>vl :VimuxRunLastCommand<CR>
 map <Leader>vi :VimuxInspectRunner<CR>
 
+autocmd FileType python let b:ale_enabled = 0
 let g:ale_linters = {
-    \   'python': ['flake8', 'plint'],
     \   'clojure': ['clj-kondo'],
     \}
 
 let g:pymode_options_max_line_length = 120 
 let g:pymode_lint_options_pep8 = {'max_line_length': g:pymode_options_max_line_length}
+let g:pymode_lint_options_flake8 = {'max_line_length': g:pymode_options_max_line_length}
 let g:pymode_options_colorcolumn = 1
 
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
@@ -132,7 +142,7 @@ filetype plugin indent on
 
 autocmd BufNewFile,BufRead *.sq set syntax=sparql | setlocal commentstring=#%s
 
-let g:python3_host_prog=$HOME.'/.pyenv/shims/python3'
+"let g:python3_host_prog=$HOME.'/.config/nvim-python/neovim/bin/python3'
 
 " set to 1, nvim will open the preview window after entering the markdown buffer
 " default: 0
@@ -233,7 +243,7 @@ let g:mkdp_filetypes = ['markdown']
 " By default the theme is define according to the preferences of the system
 "let g:mkdp_theme = 'dark'
 
-nnoremap <A-o> <Cmd>lua require'jdtls'.organize_imports()<CR>
+"nnoremap <A-o> <Cmd>lua require'jdtls'.organize_imports()<CR>
 
 nnoremap <leader>h :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>dk :lua require'dap'.continue()<CR>
@@ -246,8 +256,11 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fi <cmd>Telescope lsp_implementations<cr>
 nnoremap <leader>fr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>fd <cmd>Telescope lsp_definitions<cr>
+
+nnoremap <leader>nt :NvimTreeToggle<CR>
 
 nnoremap <leader>do :lua require'dapui'.toggle()<CR>
 
@@ -262,8 +275,8 @@ nnoremap <leader>cb :lua require("qf-diff").diff()<CR>
 nnoremap <leader>cn :lua require("qf-diff").next()<CR>
 nnoremap <leader>cp :lua require("qf-diff").prev()<CR>
 
-inoremap <expr> <cr> coc#pum#visible() ? coc#pum#confirm() : "\<CR>"
-
+let g:pymode_lint_ignore = "E501,W"
+let g:syntastic_python_pylint_post_args="--max-line-length=120"
 lua require('init')
 lua require'nvim-treesitter.configs'.setup{highlight={enable=true}}
 

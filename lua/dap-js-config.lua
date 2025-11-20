@@ -13,6 +13,14 @@ dap.adapters["pwa-node"] = {
     },
 }
 
+dap.adapters.tsnode = {
+  type = 'executable',
+  command = 'node',
+  args = {
+    vim.fn.stdpath("data") .. '/mason/packages/node-debug2-adapter/out/src/nodeDebug.js'
+  },
+}
+
 -- Need to have ts-node installed with npm; `npm i -g ts-node`
 -- Not the best solution but if it allows me to debug JS I don't mind
 for _, language in ipairs({ "typescript", "javascript" }) do
@@ -31,10 +39,14 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             request = 'launch',
             name = 'Launch Current File (Typescript)',
             cwd = "${workspaceFolder}",
-            runtimeArgs = { '--loader=ts-node/esm' },
+            runtimeArgs = { '--loader=ts-node/esm', '--no-warnings', "--experimental-specifier-resolution=node" },
             program = "${file}",
             runtimeExecutable = 'node',
             -- args = { '${file}' },
+            args = function()
+              local input = vim.fn.input("Args: ")
+              return vim.fn.split(input, " ", true)
+            end,
             sourceMaps = true,
             protocol = 'inspector',
             outFiles = { "${workspaceFolder}/**/**/*", "!**/node_modules/**" },
@@ -42,6 +54,9 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             resolveSourceMapLocations = {
                 "${workspaceFolder}/**",
                 "!**/node_modules/**",
+            },
+            env = {
+                NODE_NO_WARNINGS = "1"
             },
         },
         {
@@ -56,6 +71,7 @@ for _, language in ipairs({ "typescript", "javascript" }) do
                 "--watch", "src/server",
                 "--watch", "src/server.js"
             },
+            envFile = "${workspaceFolder}/.env",
             program = "src/server.js"
         },
         {
@@ -70,6 +86,20 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             },
             program = "server/index.js",
             args = { "dotenv_config_path=server/config/.announcebot.env" },
-        }
+        },
+        {
+          name = "[GAMUT] Launch GaMUt",
+          type = "tsnode",
+          request = "launch",
+          program = "/home/grickle/git/stardog_config/tools/gamut/src/gamut.ts",
+          cwd = vim.fn.getcwd(),
+          runtimeExecutable = "ts-node",
+          runtimeArgs = { "--esm" },
+          sourceMaps = true,
+          skipFiles = { "<node_internals>/**", "node_modules/**" },
+          protocol = "inspector",
+          console = "integratedTerminal",
+          -- resolveSourceMapLocations = { "${workspaceFolder}/**", "!**/node_modules/**" },
+        },
     }
 end
