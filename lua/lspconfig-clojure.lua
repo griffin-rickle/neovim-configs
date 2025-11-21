@@ -1,3 +1,9 @@
+local ok, local_config = pcall(require, 'local')
+if not ok then
+    vim.notify("local.lua not found. Clojure LSP will not be configured.", vim.log.levels.ERROR)
+    return
+end
+
 -- lspconfig-clojure.lua
 local api = vim.api
 local lsp = vim.lsp
@@ -6,7 +12,7 @@ local lsp = vim.lsp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Check if the JAR file exists
-local jar_path = '/home/grickle/bin/clojure-lsp-standalone.jar'
+local jar_path = local_config.clojure_lsp_jar
 if not vim.loop.fs_stat(jar_path) then
   vim.notify("clojure-lsp JAR file not found at: " .. jar_path, vim.log.levels.ERROR)
 end
@@ -14,27 +20,21 @@ end
 api.nvim_create_autocmd('FileType', {
   pattern = {'clojure'},
   callback = function()
-    local bufnr = api.nvim_get_current_buf()
-    
-    -- Let's check if the filetype is actually set to clojure
-    local ft = vim.bo.filetype
-    
-    -- Make sure we're in a valid directory
+
     local root_files = vim.fs.find({
       'project.clj', 'deps.edn', 'build.boot', 'shadow-cljs.edn',
       '.git'
     }, { upward = true })
-    
+
     local root_dir
     if #root_files > 0 then
       root_dir = vim.fs.dirname(root_files[1])
     else
       root_dir = vim.fn.getcwd()
     end
-    
-    -- Try to start the server with more debug info
+
     local cmd = { 'java', '-jar', jar_path }
-    
+
     local server = lsp.start({
       name = 'clojure-lsp',
       cmd = cmd,
@@ -53,7 +53,7 @@ api.nvim_create_autocmd('FileType', {
         end
       }
     })
-    
+
     if server then
       vim.notify("Clojure LSP started successfully with client ID: " .. server, vim.log.levels.INFO)
     else
