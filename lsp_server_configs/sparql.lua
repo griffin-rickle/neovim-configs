@@ -1,8 +1,13 @@
-local util = require('lspconfig.util')
+local ok, local_config = pcall(require, 'local')
+if not ok then
+    vim.notify("local.lua not found. SPARQL LSP will not be configured.", vim.log.levels.WARN)
+    return {}
+end
 
-local bin_name = '/home/grickle/.nvm/versions/node/v18.19.1/lib/node_modules/sparql-language-server'
+local util = require('lspconfig.util')
+local bin_name = local_config.nvm_node_path .. '/lib/node_modules/sparql-language-server'
 local cmd = { 'node', bin_name, '--stdio' }
-local lspconfig = require('lspconfig')
+
 local configs = require('lspconfig.configs')
 if not configs.sparql then
   return {
