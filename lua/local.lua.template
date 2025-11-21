@@ -12,6 +12,7 @@ M.workspace_dir = M.home .. "/git/workspaces/"
 M.nvm_node_path = M.home .. "/.nvm/versions/node/v18.19.1"  -- or wherever your node is
 M.clojure_lsp_jar = M.home .. "/bin/clojure-lsp-standalone.jar"
 M.js_debug_path = M.home .. "/Downloads/js-debug-dap-v1.97.1/js-debug/src/dapDebugServer.js"
+M.sparql_language_server = M.nvm_node_path .. '/lib/node_modules/sparql-language-server'
 
 -- Java configuration
 M.java = {
