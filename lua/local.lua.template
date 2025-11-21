@@ -1,0 +1,29 @@
+-- lua/local.lua.example
+-- Copy this to local.lua and customize for your machine
+-- DO NOT commit local.lua itself
+
+local M = {}
+
+-- Paths
+M.home = os.getenv("HOME")
+M.jdtls_path = M.home .. "/bin/jdt/"  -- or M.home .. "/.local/share/nvim/mason/packages/jdtls"
+M.java_debug_path = M.home .. "/git/java-debug/com.microsoft.java.debug.plugin/target"
+M.workspace_dir = M.home .. "/git/workspaces/"
+M.nvm_node_path = M.home .. "/.nvm/versions/node/v18.19.1"  -- or wherever your node is
+M.clojure_lsp_jar = M.home .. "/bin/clojure-lsp-standalone.jar"
+M.js_debug_path = M.home .. "/Downloads/js-debug-dap-v1.97.1/js-debug/src/dapDebugServer.js"
+
+-- Java configuration
+M.java = {
+    java_21_path = "/usr/lib/jvm/java-21-openjdk/bin/java",  -- adjust for your system
+    java_17_path = "/usr/lib/jvm/java-17-openjdk/bin/java",  -- adjust for your system
+    jdt_config = M.home .. "/bin/jdt/config_linux",  -- or config_mac, config_win
+    java_exec = "/usr/bin/java",
+}
+
+-- Project-specific paths (customize or remove projects you don't have)
+M.projects = {
+    test_project = M.home .. "/git/test_project",
+}
+
+return M
