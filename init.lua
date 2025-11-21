@@ -46,8 +46,92 @@ Plug 'onsails/lspkind-nvim'
 call plug#end()
 ]])
 
+require("bash-config")
+require("bigfile-config")
+require("cmp-config")
+require("dapui-config")
+require("dap-java-config")
+require("dap-js-config")
+require("dap-python-config")
+require("indent-blankline-config")
+require('lspconfig-clojure')
+require('lspconfig-lua')
+require("lspconfig-python")
+require("lspconfig-ruby")
+require("onedark-config")
+require("neogit-config")
+require("nvim-tree-config")
+require("nvim-treesitter-config")
+require("python-config")
+require("sparql-config")
+require("surround-config")
+require("telescope-config")
+require("typescript-tools-config")
+
+require("sparql_query").setup({
+    configs = {
+        {
+            name = "decomp local",
+            endpoint = "http://127.0.0.1:5820",
+            db = "decomp",
+            user = "admin",
+            pass = "hunter22",
+            accept = "text/tab-separated-values",
+            default = true
+        },
+        {
+            name = "decomp local",
+            endpoint = "http://127.0.0.1:5820",
+            db = "compass",
+            user = "admin",
+            pass = "hunter22",
+            accept = "text/tab-separated-values",
+        }
+    }
+})
+vim.keymap.set('n', '<Leader>qn', function()
+    require('sparql_query').run_buffer_with_new_config()
+end, { desc = "Run SPARQL query with new config selection" })
+
+vim.keymap.set('n', '<Leader>ql', function()
+    require('sparql_query').run_with_config_from_range(nil, nil, { auto_select = true })
+end, { desc = "Run SPARQL query with last used config (auto)" })
+
 -- Colorscheme
 vim.cmd('colorscheme onedark')
+
+require("mason").setup()
+
+-- Common capabilities for nvim-cmp
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+-- Bash
+vim.lsp.config.bashls = {
+  capabilities = capabilities,
+}
+
+-- Clojure
+vim.lsp.config.clojure_lsp = {
+  cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/clojure-lsp/clojure-lsp") },
+  capabilities = capabilities,
+}
+
+-- ESLint
+vim.lsp.config.eslint = {
+  capabilities = capabilities,
+}
+
+-- TypeScript (was ts_ls, now tsserver in mason)
+vim.lsp.config.ts_ls = {
+  capabilities = capabilities,
+}
+
+vim.lsp.enable({'bashls', 'clojure_lsp', 'eslint', 'ts_ls'})
+
+function bufoptsWithDesc(desc)
+    return { silent = true, buffer = bufnr, desc = desc }
+end
+
 
 -- Basic settings
 vim.opt.tabstop = 4
