@@ -110,12 +110,6 @@ vim.lsp.config.bashls = {
   capabilities = capabilities,
 }
 
--- Clojure
-vim.lsp.config.clojure_lsp = {
-  cmd = { vim.fn.expand("~/.local/share/nvim/mason/packages/clojure-lsp/clojure-lsp") },
-  capabilities = capabilities,
-}
-
 -- ESLint
 vim.lsp.config.eslint = {
   capabilities = capabilities,
@@ -126,7 +120,7 @@ vim.lsp.config.ts_ls = {
   capabilities = capabilities,
 }
 
-vim.lsp.enable({'bashls', 'clojure_lsp', 'eslint', 'ts_ls'})
+vim.lsp.enable({'bashls', 'eslint', 'ts_ls'})
 
 function bufoptsWithDesc(desc)
     return { silent = true, buffer = bufnr, desc = desc }
