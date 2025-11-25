@@ -1,7 +1,7 @@
-root_dir = require('lspconfig.util').root_pattern(".git")(0)
+root_dir = require('lspconfig.util').root_pattern("pyproject.toml", "requirements.txt")(0)
 
 if root_dir then
-    python_env = root_dir .. "/venv/bin/pylsp" 
+    python_env = root_dir .. "/venv/bin/pylsp"
     if vim.fn.executable(python_env) == 0 then
         vim.notify("pylsp not found in venv. Falling back to global pylsp. Run: pip install -e '.[dev]' to use local pylsp", vim.log.levels.WARN)
         python_env = "pylsp"
