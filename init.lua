@@ -1,3 +1,4 @@
+vim.opt.mouse=''
 -- Plugin management with vim-plug
 vim.cmd([[
 call plug#begin()
