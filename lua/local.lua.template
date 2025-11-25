@@ -26,5 +26,18 @@ M.java = {
 M.projects = {
     test_project = M.home .. "/git/test_project",
 }
+M.sparql_query_config = {
+    configs = {
+        {
+            name = "Test SPARQL Query Config",
+            endpoint = "http://127.0.0.1:5820",
+            db = "test",
+            user = "admin",
+            pass = "admin",
+            accept = "text/tab-separated-values",
+            default = true
+        }
+    }
+}
 
 return M

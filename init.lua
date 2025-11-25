@@ -69,27 +69,6 @@ require("surround-config")
 require("telescope-config")
 require("typescript-tools-config")
 
-require("sparql_query").setup({
-    configs = {
-        {
-            name = "decomp local",
-            endpoint = "http://127.0.0.1:5820",
-            db = "decomp",
-            user = "admin",
-            pass = "hunter22",
-            accept = "text/tab-separated-values",
-            default = true
-        },
-        {
-            name = "decomp local",
-            endpoint = "http://127.0.0.1:5820",
-            db = "compass",
-            user = "admin",
-            pass = "hunter22",
-            accept = "text/tab-separated-values",
-        }
-    }
-})
 vim.keymap.set('n', '<Leader>qn', function()
     require('sparql_query').run_buffer_with_new_config()
 end, { desc = "Run SPARQL query with new config selection" })
@@ -97,6 +76,16 @@ end, { desc = "Run SPARQL query with new config selection" })
 vim.keymap.set('n', '<Leader>ql', function()
     require('sparql_query').run_with_config_from_range(nil, nil, { auto_select = true })
 end, { desc = "Run SPARQL query with last used config (auto)" })
+
+local ok, local_config = pcall(require, 'local')
+local sparql_config = {}
+if not ok then
+    vim.notify("local.lua not found; no sparql_query configs will be loaded!", vim.log.levels.WARN)
+    sparql_config = {configs = {}}
+else
+    sparql_config = local_config.sparql_query_config
+end
+require("sparql_query").setup(sparql_config)
 
 -- Colorscheme
 vim.cmd('colorscheme onedark')
