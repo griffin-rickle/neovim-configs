@@ -99,11 +99,6 @@ require("mason").setup()
 -- Common capabilities for nvim-cmp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
--- Bash
-vim.lsp.config.bashls = {
-  capabilities = capabilities,
-}
-
 -- ESLint
 vim.lsp.config.eslint = {
   capabilities = capabilities,
@@ -114,7 +109,7 @@ vim.lsp.config.ts_ls = {
   capabilities = capabilities,
 }
 
-vim.lsp.enable({'bashls', 'eslint', 'ts_ls'})
+vim.lsp.enable({'eslint', 'ts_ls'})
 
 function bufoptsWithDesc(desc)
     return { silent = true, buffer = bufnr, desc = desc }
