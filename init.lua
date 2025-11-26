@@ -16,7 +16,7 @@ Plug 'mfussenegger/nvim-jdtls'
 Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-neotest/nvim-nio'
 Plug 'rcarriga/nvim-dap-ui'
-Plug 'griffin-rickle/vim-sparql-query', {'branch': 'feature/lua'}
+Plug 'griffin-rickle/sq2md.nvim', {'branch': 'feature/lua'}
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
@@ -71,22 +71,22 @@ require("telescope-config")
 require("typescript-tools-config")
 
 vim.keymap.set('n', '<Leader>qn', function()
-    require('sparql_query').run_buffer_with_new_config()
+    require('sq2md').choose_config_and_run(nil, nil)
 end, { desc = "Run SPARQL query with new config selection" })
 
 vim.keymap.set('n', '<Leader>ql', function()
-    require('sparql_query').run_with_config_from_range(nil, nil, { auto_select = true })
+    require('sq2md').run_with_last_config(nil, nil)
 end, { desc = "Run SPARQL query with last used config (auto)" })
 
 local ok, local_config = pcall(require, 'local')
 local sparql_config = {}
 if not ok then
-    vim.notify("local.lua not found; no sparql_query configs will be loaded!", vim.log.levels.WARN)
+    vim.notify("local.lua not found; no sq2md configs will be loaded!", vim.log.levels.WARN)
     sparql_config = {configs = {}}
 else
     sparql_config = local_config.sparql_query_config
 end
-require("sparql_query").setup(sparql_config)
+require("sq2md").setup(sparql_config)
 
 -- Colorscheme
 vim.cmd('colorscheme onedark')
@@ -247,7 +247,6 @@ keymap('i', 'jj', '<ESC>', opts)
 
 -- Leader mappings
 keymap('n', '<Leader>p', '<Nop>', opts)
-keymap('n', '<Leader>qb', '<Cmd>lua require("sparql_query").run_with_config_from_range()<CR>', opts)
 
 -- Vimux mappings
 keymap('n', '<Leader>vp', ':VimuxPromptCommand<CR>', opts)
