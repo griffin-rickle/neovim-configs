@@ -5,6 +5,8 @@ require 'nvim-treesitter.configs'.setup {
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
 
+  ignore_install={"ipkg"},
+
   auto_install = true,
 
   highlight = {
