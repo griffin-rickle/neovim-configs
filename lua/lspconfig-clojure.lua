@@ -1,25 +1,26 @@
-local ok, local_config = pcall(require, 'local')
-if not ok then
-    vim.notify("local.lua not found. Clojure LSP will not be configured.", vim.log.levels.ERROR)
-    return
-end
-
--- lspconfig-clojure.lua
 local api = vim.api
-local lsp = vim.lsp
-
--- Use the same capabilities you defined in your init.lua
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
--- Check if the JAR file exists
-local jar_path = local_config.clojure_lsp_jar
-if not vim.loop.fs_stat(jar_path) then
-  vim.notify("clojure-lsp JAR file not found at: " .. jar_path, vim.log.levels.ERROR)
-end
 
 api.nvim_create_autocmd('FileType', {
   pattern = {'clojure'},
   callback = function()
+    local ok, local_config = pcall(require, 'local')
+    if not ok then
+        vim.notify("local.lua not found. Clojure LSP will not be configured.", vim.log.levels.ERROR)
+        return
+    end
+
+    -- lspconfig-clojure.lua
+    local lsp = vim.lsp
+
+    -- Use the same capabilities you defined in your init.lua
+    local capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+    -- Check if the JAR file exists
+    local jar_path = local_config.clojure_lsp_jar
+    if not vim.loop.fs_stat(jar_path) then
+      vim.notify("clojure-lsp JAR file not found at: " .. jar_path, vim.log.levels.ERROR)
+    end
+
 
     local root_files = vim.fs.find({
       'project.clj', 'deps.edn', 'build.boot', 'shadow-cljs.edn',
