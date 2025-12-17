@@ -1,6 +1,21 @@
-require 'nvim-treesitter.configs'.setup {
+require 'nvim-treesitter'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = "all",
+  ensure_installed = {
+    "python",
+    "json",
+    "typescript",
+    "javascript",
+    "clojure",
+    "java",
+    "markdown",
+    "lua",
+    "ruby",
+    "elixir",
+    "rust",
+    "bash",
+    "sparql",
+    "sql"
+  },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,

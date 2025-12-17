@@ -297,7 +297,7 @@ keymap('n', '<leader>cn', '<Cmd>lua require("qf-diff").next()<CR>', opts)
 keymap('n', '<leader>cp', '<Cmd>lua require("qf-diff").prev()<CR>', opts)
 
 -- Load Lua configs
-require('nvim-treesitter.configs').setup({
+require('nvim-treesitter').setup({
     highlight = {
         enable = true
     }
