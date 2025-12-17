@@ -14,7 +14,9 @@ require 'nvim-treesitter'.setup {
     "rust",
     "bash",
     "sparql",
-    "sql"
+    "sql",
+    "toml",
+    "yaml"
   },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)

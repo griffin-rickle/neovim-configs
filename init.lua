@@ -43,6 +43,7 @@ Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'onsails/lspkind-nvim'
+Plug 'rust-lang/rust.vim'
 
 call plug#end()
 ]])
@@ -54,12 +55,14 @@ require("dapui-config")
 require("dap-java-config")
 require("dap-js-config")
 require("dap-python-config")
+require("dap-rust-config")
 require("indent-blankline-config")
 require('lspconfig-clojure')
 require('lspconfig-elixir')
 require('lspconfig-lua')
 require("lspconfig-python")
 require("lspconfig-ruby")
+require("lspconfig-rust")
 require("onedark-config")
 require("neogit-config")
 require("nvim-tree-config")
