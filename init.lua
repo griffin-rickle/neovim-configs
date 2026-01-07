@@ -1,3 +1,17 @@
+vim.filetype.add({
+  extension = {
+    sq = 'sparql',
+    rq = 'sparql',
+  }
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "sparql",
+  callback = function()
+    vim.cmd("TSBufEnable highlight")
+  end,
+})
+
 vim.opt.mouse=''
 -- Plugin management with vim-plug
 vim.cmd([[
@@ -48,6 +62,7 @@ Plug 'rust-lang/rust.vim'
 call plug#end()
 ]])
 
+require('lsp_server_configs.sparql')
 require("bash-config")
 require("bigfile-config")
 require("cmp-config")
@@ -221,15 +236,6 @@ vim.api.nvim_create_autocmd('FileType', {
     end
 })
 
-vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
-    group = augroup,
-    pattern = '*.sq',
-    callback = function()
-        vim.bo.syntax = 'sparql'
-        vim.bo.commentstring = '#%s'
-    end
-})
-
 -- Key mappings
 local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
@@ -293,10 +299,3 @@ keymap('n', '<leader>an', '<Cmd>lua vim.g.py_auto_format=0<CR>', opts)
 keymap('n', '<leader>cb', '<Cmd>lua require("qf-diff").diff()<CR>', opts)
 keymap('n', '<leader>cn', '<Cmd>lua require("qf-diff").next()<CR>', opts)
 keymap('n', '<leader>cp', '<Cmd>lua require("qf-diff").prev()<CR>', opts)
-
--- Load Lua configs
-require('nvim-treesitter').setup({
-    highlight = {
-        enable = true
-    }
-})

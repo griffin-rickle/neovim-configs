@@ -15,4 +15,3 @@ vim.lsp.sparql = {
   capabilities=capabilities,
   on_attach = on_attach
 }
-
