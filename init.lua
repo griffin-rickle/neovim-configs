@@ -284,6 +284,12 @@ keymap('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', opts)
 keymap('n', '<leader>fi', '<cmd>Telescope lsp_implementations<cr>', opts)
 keymap('n', '<leader>fr', '<cmd>Telescope lsp_references<cr>', opts)
 keymap('n', '<leader>fd', '<cmd>Telescope lsp_definitions<cr>', opts)
+keymap('n', '<leader>fa',  function()
+    require('telescope.builtin').find_files({
+        no_ignore = true,
+        hidden = true
+    })
+end, { desc = '[F]ind [A]ll files (ignored & hidden)' })
 
 -- NvimTree mapping
 keymap('n', '<leader>nt', ':NvimTreeToggle<CR>', opts)
