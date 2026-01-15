@@ -30,8 +30,8 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
 
-" Mini.vim
-Plug 'echasnovski/mini.nvim'
+" fzf-lua
+Plug 'ibhagwan/fzf-lua'
 
 " Mason
 Plug 'williamboman/mason.nvim'
@@ -113,6 +113,7 @@ require("lspconfig-python")
 require("lspconfig-ruby")
 require("lspconfig-rust")
 require("onedark-config")
+require("fzf-lua-config")
 require("neogit-config")
 require("nvim-tree-config")
 require("nvim-treesitter-config")
@@ -309,22 +310,6 @@ keymap('n', '<leader>dl', '<Cmd>lua require("dap").step_into()<CR>', opts)
 keymap('n', '<leader>dt', '<Cmd>lua require("dap").toggle_breakpoint()<CR>', opts)
 keymap('n', '<leader>de', '<Cmd>lua require("dap").disconnect({ terminateDebuggee = true })<CR>', opts)
 keymap('n', '<leader>do', '<Cmd>lua require("dapui").toggle()<CR>', opts)
-
--- Telescope mappings
-local builtin = require('telescope.builtin')
-keymap('n', '<leader>ff', builtin.find_files)
-keymap('n', '<leader>fg', builtin.live_grep)
-keymap('n', '<leader>fb', builtin.buffers)
-keymap('n', '<leader>fh', builtin.help_tags)
-keymap('n', '<leader>fi', builtin.lsp_implementations)
-keymap('n', '<leader>fr', builtin.lsp_references)
-keymap('n', '<leader>fd', builtin.lsp_definitions)
-keymap('n', '<leader>fa',  function()
-    require('telescope.builtin').find_files({
-        no_ignore = true,
-        hidden = true
-    })
-end, { desc = '[F]ind [A]ll files (ignored & hidden)' })
 
 -- NvimTree mapping
 keymap('n', '<leader>nt', ':NvimTreeToggle<CR>', opts)
