@@ -42,7 +42,6 @@ Plug 'lukas-reineke/indent-blankline.nvim'
 Plug 'HiPhish/rainbow-delimiters.nvim'
 Plug 'z0mbix/vim-shfmt'
 Plug 'kylechui/nvim-surround'
-Plug 'tpope/vim-fugitive'
 Plug 'sindrets/diffview.nvim'
 Plug 'ful1e5/onedark.nvim'
 Plug 'LunarVim/bigfile.nvim'
@@ -277,13 +276,14 @@ keymap('n', '<leader>de', '<Cmd>lua require("dap").disconnect({ terminateDebugge
 keymap('n', '<leader>do', '<Cmd>lua require("dapui").toggle()<CR>', opts)
 
 -- Telescope mappings
-keymap('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opts)
-keymap('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', opts)
-keymap('n', '<leader>fb', '<cmd>Telescope buffers<cr>', opts)
-keymap('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', opts)
-keymap('n', '<leader>fi', '<cmd>Telescope lsp_implementations<cr>', opts)
-keymap('n', '<leader>fr', '<cmd>Telescope lsp_references<cr>', opts)
-keymap('n', '<leader>fd', '<cmd>Telescope lsp_definitions<cr>', opts)
+local builtin = require('telescope.builtin')
+keymap('n', '<leader>ff', builtin.find_files)
+keymap('n', '<leader>fg', builtin.live_grep)
+keymap('n', '<leader>fb', builtin.buffers)
+keymap('n', '<leader>fh', builtin.help_tags)
+keymap('n', '<leader>fi', builtin.lsp_implementations)
+keymap('n', '<leader>fr', builtin.lsp_references)
+keymap('n', '<leader>fd', builtin.lsp_definitions)
 keymap('n', '<leader>fa',  function()
     require('telescope.builtin').find_files({
         no_ignore = true,
