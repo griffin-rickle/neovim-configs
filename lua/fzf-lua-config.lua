@@ -26,6 +26,9 @@ require('fzf-lua').setup({
       ['<C-u>'] = 'preview-page-up',
     },
   },
+  fzf_opts = {
+    ['--layout'] = 'default',  -- Changed from 'reverse' to 'default'
+  },
 })
 
 -- Keymaps
