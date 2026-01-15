@@ -13,13 +13,14 @@ M.nvm_node_path = M.home .. "/.nvm/versions/node/v18.19.1"  -- or wherever your 
 M.clojure_lsp_jar = M.home .. "/bin/clojure-lsp-standalone.jar"
 M.js_debug_path = M.home .. "/Downloads/js-debug-dap-v1.97.1/js-debug/src/dapDebugServer.js"
 M.sparql_language_server = M.nvm_node_path .. '/lib/node_modules/sparql-language-server'
+M.asdf_path = M.home .. "/.asdf"
 
 -- Java configuration
 M.java = {
-    java_21_path = "/usr/lib/jvm/java-21-openjdk/bin/java",  -- adjust for your system
-    java_17_path = "/usr/lib/jvm/java-17-openjdk/bin/java",  -- adjust for your system
-    jdt_config = M.home .. "/bin/jdt/config_linux",  -- or config_mac, config_win
-    java_exec = "/usr/bin/java",
+    java_21_path = M.asdf_path .. "/installs/java/temurin-21.0.9+10.0.LTS/bin/java",
+    java_17_path = M.asdf_path .. "installs/java/temurin-17.0.17+10/bin/java",
+    jdt_config = M.home .. "/bin/jdt/config_linux",
+    java_exec = M.asdf_path .. "/shims/java",
 }
 
 -- Project-specific paths (customize or remove projects you don't have)

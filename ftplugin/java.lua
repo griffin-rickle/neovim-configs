@@ -35,7 +35,7 @@ end
 
 local config = {
     cmd = {
-        '/usr/lib/jvm/java-21-openjdk-21.0.8.0.9-1.el8.x86_64/bin/java',
+        local_config.java.java_21_path,
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -46,7 +46,7 @@ local config = {
         '--add-opens', 'java.base/java.util=ALL-UNNAMED',
         '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
         '-jar', launcher_jar,
-        "-configuration", home .. "/bin/jdt/config_linux",
+        "-configuration", local_config.java.jdt_config,
         '-data', workspace_dir
     },
     root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
