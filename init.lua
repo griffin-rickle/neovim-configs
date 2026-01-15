@@ -17,47 +17,82 @@ vim.opt.mouse=''
 vim.cmd([[
 call plug#begin()
 
-" List your plugins here
-Plug 'niklasl/vim-rdf'
-Plug 'tpope/vim-sensible'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-tree/nvim-tree.lua'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'mfussenegger/nvim-jdtls'
-Plug 'mfussenegger/nvim-dap'
 Plug 'nvim-neotest/nvim-nio'
-Plug 'rcarriga/nvim-dap-ui'
-Plug 'griffin-rickle/sq2md.nvim', {'branch': 'feature/lua'}
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'williamboman/mason.nvim'
-Plug 'williamboman/mason-lspconfig.nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'NeogitOrg/neogit'
-Plug 'mfussenegger/nvim-dap-python'
-Plug 'pmizio/typescript-tools.nvim'
-Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'HiPhish/rainbow-delimiters.nvim'
-Plug 'z0mbix/vim-shfmt'
-Plug 'kylechui/nvim-surround'
-Plug 'sindrets/diffview.nvim'
-Plug 'ful1e5/onedark.nvim'
-Plug 'LunarVim/bigfile.nvim'
-Plug 'niuiic/core.nvim'
-Plug 'niuiic/dap-utils.nvim'
+
+" Plenary 
+Plug 'nvim-lua/plenary.nvim'
+
+" CMP
 Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+
+" Mini.vim
+Plug 'echasnovski/mini.nvim'
+
+" Mason
+Plug 'williamboman/mason.nvim'
+Plug 'williamboman/mason-lspconfig.nvim'
+
+" Sparql-specifics
+Plug 'niklasl/vim-rdf'
+Plug 'griffin-rickle/sq2md.nvim', {'branch': 'feature/lua'}
+
+" Treesitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+"LSP Config
+Plug 'neovim/nvim-lspconfig'
+Plug 'mfussenegger/nvim-jdtls'
+
+" Git Stuff
+Plug 'NeogitOrg/neogit'
+Plug 'sindrets/diffview.nvim'
+
+" Debugging
+Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'mfussenegger/nvim-dap-python'
+Plug 'niuiic/core.nvim'
+Plug 'niuiic/dap-utils.nvim'
+
+" Pickers
+Plug 'nvim-telescope/telescope.nvim'
+
+" UI / UX
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'lukas-reineke/indent-blankline.nvim'
+Plug 'HiPhish/rainbow-delimiters.nvim'
+Plug 'ful1e5/onedark.nvim'
+Plug 'onsails/lspkind-nvim'
+Plug 'LunarVim/bigfile.nvim'
+
+" TMUX
+Plug 'christoomey/vim-tmux-navigator'
+
+" Markdown
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+
+" Bash
+Plug 'z0mbix/vim-shfmt'
+
+" Typescript
+Plug 'pmizio/typescript-tools.nvim'
+
+" Keybinds
+Plug 'kylechui/nvim-surround'
+Plug 'tpope/vim-sensible'
+
+" Lua
 Plug 'L3MON4D3/LuaSnip'
 Plug 'saadparwaiz1/cmp_luasnip'
-Plug 'onsails/lspkind-nvim'
-Plug 'rust-lang/rust.vim'
 
+" Rust
+Plug 'rust-lang/rust.vim'
 call plug#end()
 ]])
 
