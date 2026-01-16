@@ -27,7 +27,7 @@ require('fzf-lua').setup({
     },
   },
   fzf_opts = {
-    ['--layout'] = 'default',  -- Changed from 'reverse' to 'default'
+    ['--layout'] = 'default',
   },
 })
 
@@ -40,3 +40,4 @@ keymap('n', '<leader>fh', fzf.help_tags, opts)
 keymap('n', '<leader>fd', fzf.lsp_definitions, opts)
 keymap('n', '<leader>fr', fzf.lsp_references, opts)
 keymap('n', '<leader>fi', fzf.lsp_implementations, opts)
+keymap('n', '<leader>fq', fzf.quickfix, opts)
