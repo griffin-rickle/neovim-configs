@@ -41,3 +41,9 @@ keymap('n', '<leader>fd', fzf.lsp_definitions, opts)
 keymap('n', '<leader>fr', fzf.lsp_references, opts)
 keymap('n', '<leader>fi', fzf.lsp_implementations, opts)
 keymap('n', '<leader>fq', fzf.quickfix, opts)
+keymap('n', '<leader>ca', vim.lsp.buf.code_action, opts)
+keymap('v', '<leader>ca', vim.lsp.buf.code_action, opts)
+keymap('n', '<leader>rn', vim.lsp.buf.rename, opts)
+
+fzf.register_ui_select()
+
