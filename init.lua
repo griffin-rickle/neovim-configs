@@ -8,12 +8,14 @@ vim.filetype.add({
 vim.api.nvim_create_autocmd("FileType", {
   pattern = "sparql",
   callback = function()
-    vim.cmd("TSBufEnable highlight")
+    local parser = vim.treesitter.get_parser(0, "sparql")
+    if parser then
+      vim.treesitter.highlighter.new(parser)
+    end
   end,
 })
 
 vim.opt.mouse=''
--- Plugin management with vim-plug
 vim.cmd([[
 call plug#begin()
 
