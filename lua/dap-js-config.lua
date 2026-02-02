@@ -25,6 +25,16 @@ dap.adapters["pwa-node"] = {
     },
 }
 
+dap.adapters["pwa-chrome"] = {
+    type = "server",
+    host = "localhost",
+    port = "${port}",
+    executable = {
+        command = "node",
+        args = { local_config.js_debug_path, "${port}" },
+    },
+}
+
 dap.adapters.tsnode = {
   type = 'executable',
   command = 'node',

@@ -1,20 +1,3 @@
-vim.filetype.add({
-  extension = {
-    sq = 'sparql',
-    rq = 'sparql',
-  }
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "sparql",
-  callback = function()
-    local parser = vim.treesitter.get_parser(0, "sparql")
-    if parser then
-      vim.treesitter.highlighter.new(parser)
-    end
-  end,
-})
-
 vim.opt.mouse=''
 vim.cmd([[
 call plug#begin()
@@ -265,6 +248,16 @@ vim.api.nvim_create_autocmd('FileType', {
     pattern = 'python',
     callback = function()
         vim.b.ale_enabled = 0
+    end
+})
+
+vim.api.nvim_create_autocmd('FileType', {
+    group = augroup,
+    pattern = 'typescript',
+    callback = function()
+        vim.opt_local.tabstop = 2
+        vim.opt_local.softtabstop = 2
+        vim.opt_local.shiftwidth = 2
     end
 })
 
