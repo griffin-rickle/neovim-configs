@@ -36,7 +36,8 @@ cmp.setup({
     sources = cmp.config.sources({
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
-        { name = 'luasnip' }
+        { name = 'luasnip' },
+        { name = 'omni' },  
     }, {
             { name = 'buffer' },
             { name = 'path' }
@@ -60,3 +61,12 @@ cmp.setup({
     },
 })
 
+-- Set configuration for specific filetype.
+cmp.setup.filetype('tex', {
+  sources = cmp.config.sources({
+    { name = 'omni' },  -- VimTeX omni completion
+    { name = 'luasnip' },
+    { name = 'buffer' },
+    { name = 'path' },
+  })
+})

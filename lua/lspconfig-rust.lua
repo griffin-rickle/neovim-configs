@@ -1,4 +1,14 @@
--- Common capabilities for nvim-cmp
+-- Needed Installations:
+-- rustup
+-- rustup component add rust-analyzer
+-- codelldb install (latest release from https://github.com/vadimcn/codelldb/releases)
+-- $# Download 
+-- $ mkdir -p ~/.local/share/nvim/codelldb
+-- $ cd ~/.local/share/nvim/codelldb
+-- $ mv ~/Downloads/codelldb-*.vsix .
+-- $ unzip codelldb-*.vsix
+-- $ chmod +x extension/adapter/codelldb
+
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local function custom_attach(client, bufnr)
@@ -9,7 +19,7 @@ local function custom_attach(client, bufnr)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-    vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+    -- vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
     vim.keymap.set('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format({ async = true }) end, opts)

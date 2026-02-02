@@ -31,6 +31,7 @@ Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-cmdline'
 Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'hrsh7th/cmp-omni'
 
 " fzf-lua
 Plug 'ibhagwan/fzf-lua'
@@ -42,6 +43,9 @@ Plug 'williamboman/mason-lspconfig.nvim'
 " Sparql-specifics
 Plug 'niklasl/vim-rdf'
 Plug 'griffin-rickle/sq2md.nvim', {'branch': 'feature/lua'}
+
+" LaTeX
+Plug 'lervag/vimtex'
 
 " Treesitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -108,6 +112,7 @@ require("dap-js-config")
 require("dap-python-config")
 require("dap-rust-config")
 require("indent-blankline-config")
+require("latex-config")
 require('lspconfig-clojure')
 require('lspconfig-elixir')
 require('lspconfig-lua')
