@@ -31,7 +31,7 @@ Plug 'griffin-rickle/sq2md.nvim', {'branch': 'feature/lua'}
 Plug 'lervag/vimtex'
 
 " Treesitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'v0.10.0', 'do': ':TSUpdate' }
 
 "LSP Config
 Plug 'neovim/nvim-lspconfig'
