@@ -17,6 +17,12 @@ require('fzf-lua').setup({
       hidden = 'nohidden',
     },
   },
+  files = {
+    fd_opts = "--type f --exclude venv --exclude .git",
+  },
+  grep = {
+    rg_opts = "--column --line-number --no-heading --color=always --smart-case --glob '!venv/**'",
+  },
 
   keymap = {
     builtin = {
@@ -33,7 +39,8 @@ require('fzf-lua').setup({
 
 -- Keymaps
 local fzf = require('fzf-lua')
-keymap('n', '<leader>ff', fzf.files, opts)
+keymap('n', '<leader>ff', fzf.git_files, opts)
+keymap('n', '<leader>fa', fzf.files, opts)
 keymap('n', '<leader>fg', fzf.live_grep, opts)
 keymap('n', '<leader>fb', fzf.buffers, opts)
 keymap('n', '<leader>fh', fzf.help_tags, opts)

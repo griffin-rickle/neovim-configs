@@ -171,7 +171,7 @@ vim.opt.foldenable = false
 
 -- Filetype settings
 vim.cmd('filetype plugin indent on')
-vim.cmd('syntax on')
+-- vim.cmd('syntax on')
 
 -- Leader key
 vim.g.mapleader = '\\'
@@ -325,3 +325,11 @@ keymap('n', '<leader>an', '<Cmd>lua vim.g.py_auto_format=0<CR>', opts)
 keymap('n', '<leader>cb', '<Cmd>lua require("qf-diff").diff()<CR>', opts)
 keymap('n', '<leader>cn', '<Cmd>lua require("qf-diff").next()<CR>', opts)
 keymap('n', '<leader>cp', '<Cmd>lua require("qf-diff").prev()<CR>', opts)
+
+-- Force treesitter highlighting on
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = '*',
+  callback = function()
+    pcall(vim.treesitter.start)
+  end
+})
