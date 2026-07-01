@@ -82,6 +82,10 @@ Plug 'saadparwaiz1/cmp_luasnip'
 
 " Rust
 Plug 'rust-lang/rust.vim'
+
+" LLM
+Plug 'olimorris/codecompanion.nvim'
+
 call plug#end()
 ]])
 
@@ -118,6 +122,7 @@ require("sparql-config")
 require("surround-config")
 require("telescope-config")
 require("typescript-tools-config")
+require("codecompanion-config")
 
 vim.keymap.set('n', '<Leader>qn', function()
     require('sq2md').choose_config_and_run(nil, nil)
