@@ -40,4 +40,9 @@ local M = {
     },
 }
 
+M.anthropic_api_key = "sk-ant-..."
+M.openai_api_key = "sk-..."
+M.llm_default_adapter = "anthropic"  -- or "openai" / "ollama"
+M.ollama_model = "llama3"
+
 return M
