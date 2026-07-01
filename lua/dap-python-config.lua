@@ -15,4 +15,8 @@ if root_dir then
 end
 
 require("dap-python").setup(python_env)
-dap.configurations.python = local_dap_configs.python
+if local_dap_configs.python and #local_dap_configs.python > 0 then
+    for _, config in ipairs(local_dap_configs.python) do
+        table.insert(dap.configurations.python, config)
+    end
+end

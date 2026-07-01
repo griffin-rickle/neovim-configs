@@ -1,15 +1,5 @@
-root_dir = require('lspconfig.util').root_pattern("pyproject.toml", "requirements.txt")(0)
-
-if root_dir then
-    python_env = root_dir .. "/venv/bin/pylsp"
-    if vim.fn.executable(python_env) == 0 then
-        vim.notify("pylsp not found in venv. Falling back to global pylsp. Run: pip install -e '.[dev]' to use local pylsp", vim.log.levels.WARN)
-        python_env = "pylsp"
-    end
-end
-
+-- PYLSP COMMAND SHOULD BE COMING FROM ENVIRONMENT, IF asdfvm AND direnv ARE SET UP CORRECTLY
 vim.lsp.config.pylsp = {
-    cmd = { python_env },
     on_attach = custom_attach,
     capabilities = capabilities,
     settings = {
@@ -27,17 +17,20 @@ vim.lsp.config.pylsp = {
                 pylsp_mypy = {
                     enabled = true,
                     strict = true,
+                    report_progress = false
+                    -- dmypy = true,
                 },
+                -- jedi = { environment = vim.fn.exepath('python3') },
                 -- auto-completion options
                 jedi_completion = { fuzzy = true },
                 -- import sorting
                 pyls_isort = { enabled = true },
                 rope_autoimport = {
-                    enabled = true,
+                    enabled = false,
                     memory = true,
                 },
                 rope_completion = {
-                    enabled = true,
+                    enabled = false,
                 },
             },
         },
