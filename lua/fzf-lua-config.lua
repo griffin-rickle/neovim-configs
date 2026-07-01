@@ -3,6 +3,7 @@ local keymap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
 require('fzf-lua').setup({
+  'default-title',
   winopts = {
     height = 0.85,
     width = 0.80,

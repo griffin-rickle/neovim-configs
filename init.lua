@@ -31,7 +31,7 @@ Plug 'griffin-rickle/sq2md.nvim', {'branch': 'feature/lua'}
 Plug 'lervag/vimtex'
 
 " Treesitter
-Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'v0.10.0', 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch': 'master', 'do': ':TSUpdate' }
 
 "LSP Config
 Plug 'neovim/nvim-lspconfig'
@@ -55,7 +55,7 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'lukas-reineke/indent-blankline.nvim'
-Plug 'HiPhish/rainbow-delimiters.nvim'
+Plug 'HiPhish/rainbow-delimiters.nvim', {'for': ['python', 'lua', 'javascript', 'typescript', 'clojure']}
 Plug 'ful1e5/onedark.nvim'
 Plug 'onsails/lspkind-nvim'
 Plug 'LunarVim/bigfile.nvim'
@@ -84,6 +84,21 @@ Plug 'saadparwaiz1/cmp_luasnip'
 Plug 'rust-lang/rust.vim'
 call plug#end()
 ]])
+
+
+-- This was needed at one point with some branch of nvim-treesitter. 
+-- -- Force treesitter highlighting on
+-- vim.api.nvim_create_autocmd('BufEnter', {
+--   callback = function(args)
+--     local bufnr = args.buf
+--     if vim.bo[bufnr].filetype ~= '' and not vim.treesitter.highlighter.active[bufnr] then
+--       vim.schedule(function()
+--         pcall(vim.treesitter.start, bufnr)
+--       end)
+--     end
+--   end,
+--   desc = "Start treesitter highlighting if not active"
+-- })
 
 require('lsp_server_configs.sparql')
 require('lsp_server_configs.shacl')
@@ -148,6 +163,17 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 -- ESLint
 vim.lsp.config.eslint = {
   capabilities = capabilities,
+  root_dir = function(fname)
+    return vim.fs.root(fname, {
+      '.eslintrc',
+      '.eslintrc.js',
+      '.eslintrc.json',
+      '.eslintrc.yml',
+      'eslint.config.js',
+      'package.json',
+      '.git'
+    })
+  end,
 }
 
 -- TypeScript (was ts_ls, now tsserver in mason)
@@ -332,10 +358,64 @@ keymap('n', '<leader>cb', '<Cmd>lua require("qf-diff").diff()<CR>', opts)
 keymap('n', '<leader>cn', '<Cmd>lua require("qf-diff").next()<CR>', opts)
 keymap('n', '<leader>cp', '<Cmd>lua require("qf-diff").prev()<CR>', opts)
 
--- Force treesitter highlighting on
-vim.api.nvim_create_autocmd('FileType', {
-  pattern = '*',
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "sql",
   callback = function()
-    pcall(vim.treesitter.start)
-  end
+    vim.bo.omnifunc = ""
+  end,
 })
+
+-- Install tree-sitter parsers
+local parsers = {
+  "python",
+  "json",
+  "typescript",
+  "javascript",
+  "clojure",
+  "java",
+  "markdown",
+  "markdown_inline",
+  "lua",
+  "ruby",
+  "elixir",
+  "rust",
+  "bash",
+  "sql",
+  "toml",
+  "yaml",
+  "vim",
+  "vimdoc"
+}
+
+-- Function to ensure parsers are installed
+local function ensure_parsers()
+  for _, parser in ipairs(parsers) do
+    if not vim.treesitter.language.get_lang(parser) then
+      vim.cmd("TSInstall " .. parser)
+    end
+  end
+end
+
+-- Install parsers on startup
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.schedule(ensure_parsers)
+  end,
+  once = true
+})
+
+-- Enable tree-sitter highlighting by default
+vim.treesitter.language.register('bash', 'sh')  -- Use bash parser for sh files
+
+-- Auto-start treesitter for supported languages
+vim.api.nvim_create_autocmd('FileType', {
+  callback = function(args)
+    local bufnr = args.buf
+    pcall(vim.treesitter.start, bufnr)
+  end,
+  desc = "Start treesitter highlighting"
+})
+
+-- Ensure syntax is off to avoid conflicts
+vim.cmd('syntax off')
+vim.opt.runtimepath:prepend(vim.fn.stdpath('data') .. '/tree-sitter-parsers')

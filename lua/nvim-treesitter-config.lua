@@ -74,3 +74,14 @@ require 'nvim-treesitter'.setup {
   },
 }
 
+-- And add this to nvim-treesitter-config.lua at the end:
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {"python", "lua", "javascript", "typescript", "clojure"},
+  callback = function()
+    -- Load rainbow delimiters after treesitter is ready
+    vim.schedule(function()
+      require('rainbow-delimiters.setup').setup()
+    end)
+  end,
+  once = true
+})
